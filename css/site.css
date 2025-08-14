@@ -21,3 +21,20 @@ p{margin:6px 0;opacity:.92}
 .blue .bg{background:radial-gradient(1200px 600px at 50% 30%,rgba(56,189,248,.2) 0%,#05070a 55%,#030508 100%)}
 .blue .btn{background:linear-gradient(90deg,#38bdf8,#60a5fa)}
 .blue .hero img{box-shadow:0 0 0 2px rgba(56,189,248,.25),0 20px 60px rgba(56,189,248,.25)}
+/* ===== Matrix rain canvas (shared) ===== */
+#matrix-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -2;           /* خلف كل شيء */
+  background: #000;      /* أساس داكن */
+  pointer-events: none;  /* ما يمنع النقر */
+}
+
+/* لون افتراضي (أخضر) إن ما تحدد عبر data-matrix-color */
+:root { --matrix-color: #00ff80; }
+
+/* بإمكانك تخصيص ألوان إضافية بالمرحلة إن حبيت
+.stage2 { --matrix-color: #00ccff; }
+.stage3 { --matrix-color: #a855f7; }
+.stage4 { --matrix-color: #ef4444; }
+.stage5 { --matrix-color: #f59e0b; } */
