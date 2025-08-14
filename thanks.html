@@ -3,30 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شكراً – يتم فتح البوابة…</title>
+  <title>شكراً · فتح البوابة</title>
+  <link rel="stylesheet" href="css/site.css" />
   <meta name="robots" content="noindex" />
-  <style>
-    body{margin:0;display:grid;place-items:center;height:100vh;background:#0b1020;color:#fff;font-family:'Amiri',serif;text-align:center}
-    .card{padding:20px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);width:min(560px,92vw)}
-    a.btn{display:inline-block;margin-top:12px;padding:10px 16px;border-radius:999px;background:linear-gradient(90deg,#2563eb,#22d3ee);color:#001;text-decoration:none}
-  </style>
 </head>
-<body>
-  <div class="card">
-    <h1>تم استلام الإشارة</h1>
-    <p>نفتح البوابة التالية الآن…</p>
-    <p><small>إن لم يتم التحويل تلقائيًا خلال لحظات، اضغط الزر أدناه.</small></p>
-    <a id="go" class="btn" href="stage3.html?paid=1">تابِع إلى المرحلة الثالثة</a>
+<body class="fog blue">
+  <div class="bg"></div>
+  <div class="container">
+    <div class="card">
+      <h1>تم استلام الإشارة</h1>
+      <p>نفتح لك البوابة التالية الآن…</p>
+      <a class="btn" href="stage3.html?paid=1">تابِع إلى البوابة التالية</a>
+      <p class="small">إذا لم يتم التحويل تلقائيًا خلال ثانية، اضغط الزر.</p>
+    </div>
   </div>
-
   <script>
-    // علِّم بأن الدفع اكتمل (احتياطي لو رجع المستخدم لواجهة أخرى)
-    try { localStorage.setItem('mystic_paid','1'); } catch(e){}
-
-    // تحويل تلقائي إلى المرحلة الثالثة (مع علامة الدفع)
-    setTimeout(() => {
-      window.location.replace('stage3.html?paid=1');
-    }, 500);
+    try {{ localStorage.setItem('mystic_paid','1'); }} catch(e){{}}
+    setTimeout(()=>{{ window.location.replace('stage3.html?paid=1'); }}, 700);
   </script>
 </body>
 </html>
