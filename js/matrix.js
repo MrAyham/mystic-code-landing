@@ -1,37 +1,34 @@
-(function(){
-  const c = document.getElementById('matrix'); if(!c) return;
-  const x = c.getContext('2d');
 
-  function resize(){ c.width = innerWidth; c.height = innerHeight; }
-  addEventListener('resize', resize); resize();
+function startMatrix(color="green") {
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
 
-  const color = (document.body.getAttribute('data-matrix-color') || '#0f0').trim();
-  const chars = 'ｱｶｻﾀﾅﾊﾏﾔﾗﾜ0123456789';
-  const fs = 16;
-  let cols = Math.floor(c.width / fs);
-  let drops = new Array(cols).fill(1);
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 
-  function draw(){
-    x.fillStyle = 'rgba(0,0,0,0.08)';
-    x.fillRect(0,0,c.width,c.height);
+    const letters = '01';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
 
-    x.fillStyle = color;
-    x.font = fs + 'px monospace';
+    const drops = Array(Math.floor(columns)).fill(1);
 
-    for(let i=0;i<drops.length;i++){
-      const t = chars[Math.floor(Math.random()*chars.length)];
-      x.fillText(t, i*fs, drops[i]*fs);
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      if(drops[i]*fs > c.height && Math.random() > 0.975) drops[i] = 0;
-      drops[i]++;
+        ctx.fillStyle = color;
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = letters.charAt(Math.floor(Math.random() * letters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
     }
-  }
 
-  let raf;
-  (function loop(){ draw(); raf = requestAnimationFrame(loop); })();
-
-  document.addEventListener('visibilitychange', ()=>{
-    if(document.hidden) cancelAnimationFrame(raf);
-    else (function loop(){ draw(); raf = requestAnimationFrame(loop); })();
-  });
-})();
+    setInterval(draw, 33);
+}
