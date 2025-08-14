@@ -1,72 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شيفرة الغموض – Mystic Code Experience</title>
-  <meta name="description" content="المرحلة الأولى: بوابة التشويش. اختر مسارك وأدخل عالم شيفرة الغموض." />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <!-- Matrix background -->
-  <canvas id="matrix"></canvas>
-
-  <!-- Content -->
-  <div class="content">
-    <img src="assets/mystic-symbol-green.png" alt="رمز شيفرة الغموض" class="symbol" />
-
-    <h1 class="title">لقد رصدتك… هناك سر يهمس باسمك</h1>
-    <p class="subtitle">أدخل اسمك ودع قلب البوابة يفتح لك…</p>
-
-    <form id="entryForm" novalidate>
-      <div class="fields">
-        <input type="text" id="name" name="name" placeholder="اسمك" required />
-        <input type="email" id="email" name="email" placeholder="بريدك الإلكتروني" required />
-      </div>
-
-      <div class="buttons">
-        <button type="button" id="pathA" class="btn btn-a">🔮 اختر المسار الساحر</button>
-        <button type="button" id="pathB" class="btn btn-b">⚡ اختر المسار الغامض</button>
-      </div>
-      <p class="note">بالنقر على أحد المسارين، يتم حفظ اختيارك محليًا ليتابع بك إلى المرحلة التالية.</p>
-    </form>
-  </div>
-
-  <script src="matrix.js"></script>
-  <script>
-    // Simple path handling (local only for now)
-    function validate() {
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      if (!name || !email) { alert('رجاءً أدخل الاسم والبريد.'); return null; }
-      // very basic email check
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('البريد الإلكتروني غير صالح.'); return null; }
-      return { name, email };
-    }
-
-    function saveLead(data, path) {
-      // store locally (placeholder). Later: connect to MailerLite/ConvertKit
-      localStorage.setItem('mystic_name', data.name);
-      localStorage.setItem('mystic_email', data.email);
-      localStorage.setItem('mystic_path', path);
-      alert('تم التسجيل بنجاح! مسارك: ' + (path === 'A' ? 'الساحر' : 'الغامض') + '\n(سنفعّل المرحلة البنفسجية بعد الدفع في الخطوة القادمة)');
-      // Placeholder for redirect to stage 2 (to be built next)
-      // window.location.href = 'stage2.html';
-    }
-
-    document.getElementById('pathA').addEventListener('click', () => {
-      const data = validate(); if (!data) return; saveLead(data, 'A');
-    });
-    document.getElementById('pathB').addEventListener('click', () => {
-      const data = validate(); if (!data) return; saveLead(data, 'B');
-    });
-
-    // Resize canvas on window resize
-    window.addEventListener('resize', () => {
-      const c = document.getElementById('matrix');
-      c.height = window.innerHeight;
-      c.width = window.innerWidth;
-    });
-  </script>
-</body>
-</html>
