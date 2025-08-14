@@ -1,0 +1,9 @@
+.bg{position:fixed;inset:0;background:radial-gradient(1200px 600px at 50% 30%,#eab308 0%,#2e2200 65%,#0c0900 100%)}
+.content{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:'Amiri',serif;color:#fff;text-align:center}
+.card{width:min(680px,92vw);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:22px;backdrop-filter:blur(6px)}
+.inp{width:100%;padding:12px;border-radius:12px;border:1px solid #5b4b00;background:#0b0a00;color:#fff;margin-top:8px;text-align:center}
+.btn{display:inline-block;margin-top:12px;padding:12px 18px;border-radius:999px;background:linear-gradient(90deg,#fde047,#fbbf24);color:#2e2200;text-decoration:none;border:none;cursor:pointer}
+.status{margin-top:8px;opacity:.9}
+.gift{margin-top:14px}
+.next{background:linear-gradient(90deg,#fbbf24,#f59e0b)}
+.small{opacity:.8;font-size:12px}
