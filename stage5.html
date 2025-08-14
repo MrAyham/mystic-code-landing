@@ -1,0 +1,40 @@
+
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stage 5 · التتويج</title>
+<link rel="stylesheet" href="css/site.css" /></head>
+<body class="stage5" data-matrix-color="#f5c542">
+<canvas id="matrix"></canvas><div class="radial"></div>
+<div class="container"><div class="card"><div class="hero">
+<img class="seal gold" src="seal_5.webp" alt="الختم الذهبي" />
+<h1>المرحلة الخامسة – التتويج</h1>
+<p class="note">كلمة التتويج = fragment_1 + fragment_2 + RA</p>
+<input id="code" class="inp" placeholder="أدخل كلمة التتويج…" />
+<button class="btn" onclick="check()">افتح النور</button>
+<p id="status"></p>
+<div id="gift" style="display:none;margin-top:10px">
+  <h3>النور يُرى ✨</h3>
+  <p id="msg"></p>
+  <a class="btn" href="#" id="giftLink" target="_blank" rel="noopener">جرّب الهدية</a>
+</div>
+</div></div></div>
+<script>
+  function check(){
+    const f1=(localStorage.getItem('mc_f1')||'ARCH').toUpperCase();
+    const f2=(localStorage.getItem('mc_f2')||'').toUpperCase();
+    const target=(f1 + f2 + 'RA').toUpperCase();
+    const val=(document.getElementById('code').value||'').toUpperCase().trim();
+    const s=document.getElementById('status');
+    if(val===target){
+      s.textContent='صحيح. التتويج يفتح.'; s.style.color='#00ff88';
+      const name=localStorage.getItem('mystic_name')||'أنت';
+      document.getElementById('msg').textContent=`${name}… لقد بلغت السيادة.`;
+      document.getElementById('giftLink').href='https://example.com/twin';
+      document.getElementById('gift').style.display='block';
+      localStorage.setItem('mc_crowned','1');
+    }else{
+      s.textContent='ليست هذه الكلمة. أعِد تركيب الأجزاء.'; s.style.color='#ff6b6b';
+    }
+  }
+</script>
+<script src="js/matrix.js"></script></body></html>
