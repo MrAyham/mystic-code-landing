@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شكراً · فتح البوابة</title>
-  <link rel="stylesheet" href="css/site.css" />
-  <meta name="robots" content="noindex" />
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>شكراً · فتح البوابة</title>
+<style>
+  html,body{margin:0;height:100%;background:#000;color:#fff;font-family:sans-serif;overflow:hidden}
+  #matrix{position:fixed;inset:0;z-index:-2;background:#000;pointer-events:none}
+  .wrap{min-height:100vh;display:grid;place-items:center;padding:20px}
+  .card{width:min(720px,94vw);text-align:center;background:rgba(255,255,255,.05);
+        border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:22px;backdrop-filter:blur(6px)}
+  .btn{display:inline-block;margin-top:12px;padding:10px 16px;border-radius:999px;border:0;background:linear-gradient(90deg,#38bdf8,#60a5fa);color:#012}
+</style>
 </head>
-<body class="fog blue">
-  <div class="bg"></div>
-  <div class="container">
-    <div class="card">
-      <h1>تم استلام الإشارة</h1>
-      <p>نفتح لك البوابة التالية الآن…</p>
-      <a class="btn" href="stage3.html?paid=1">تابِع إلى البوابة التالية</a>
-      <p class="small">إذا لم يتم التحويل تلقائيًا خلال ثانية، اضغط الزر.</p>
-    </div>
-  </div>
-  <script>
-    try {{ localStorage.setItem('mystic_paid','1'); }} catch(e){{}}
-    setTimeout(()=>{{ window.location.replace('stage3.html?paid=1'); }}, 700);
-  </script>
-</body>
-</html>
+<body data-matrix-color="#00ccff">
+<canvas id="matrix"></canvas>
+<div class="wrap"><div class="card">
+  <h1>تم استلام الإشارة</h1>
+  <p>نفتح لك البوابة التالية الآن…</p>
+  <a class="btn" href="stage3.html?paid=1">تابِع الآن</a>
+</div></div>
+
+<script>try{localStorage.setItem('mystic_paid','1')}catch(e){};setTimeout(()=>location.replace('stage3.html?paid=1'),700);</script>
+<script>
+(function(){const c=document.getElementById('matrix'),x=c.getContext('2d');
+function r(){c.width=innerWidth;c.height=innerHeight}addEventListener('resize',r);r();
+const color=document.body.getAttribute('data-matrix-color')||'#0ff',fs=16,chars='ｱｶｻﾀﾅﾊﾏﾔﾗﾜ0123456789';
+let cols=Math.floor(c.width/fs),drops=Array(cols).fill(1);
+function d(){x.fillStyle='rgba(0,0,0,0.08)';x.fillRect(0,0,c.width,c.height);
+x.fillStyle=color;x.font=fs+'px monospace';for(let i=0;i<drops.length;i++){const t=chars[Math.random()*chars.length|0];
+x.fillText(t,i*fs,drops[i]*fs);if(drops[i]*fs>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++;}}
+(function l(){d();requestAnimationFrame(l)})()})();
+</script>
+</body></html>
