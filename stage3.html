@@ -1,48 +1,53 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>المرحلة الثالثة – شيفرة الغموض</title>
-  <link rel="stylesheet" href="stage3.css" />
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Stage 3 · انفتاح البوابة</title>
+<style>
+  html,body{margin:0;height:100%;background:#000;color:#fff;font-family:sans-serif;overflow:hidden}
+  #matrix{position:fixed;inset:0;z-index:-2;background:#000;pointer-events:none}
+  .wrap{min-height:100vh;display:grid;place-items:center;padding:20px}
+  .card{width:min(860px,94vw);text-align:center;background:rgba(255,255,255,.05);
+        border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:22px;backdrop-filter:blur(6px)}
+  .inp{width:min(420px,90%);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:#0b0e15;color:#fff;text-align:center}
+  .btn{display:inline-block;margin-top:10px;padding:10px 16px;border-radius:999px;border:0;background:linear-gradient(90deg,#a855f7,#22d3ee);color:#012}
+  .small{font-size:12px;opacity:.8}
+</style>
+<!-- hint: VGhlIGtleSA9IEFSQ0g=  (Base64 → The key = ARCH) -->
 </head>
-<body>
-  <div class="bg"></div>
-  <div class="content">
-    <div class="card">
-      <h1>المرحلة الثالثة</h1>
-      <p id="gate"></p>
-      <div id="locked" class="locked">
-        <p>هذه البوابة تتطلب إشارة دفع صالحة.</p>
-        <p class="hint">إذا كنت دفعت، تأكد أن رابط العودة يحتوي <code>?paid=1</code></p>
-        <a href="stage2.html" class="btn back">⬅ العودة للمرحلة الثانية</a>
-      </div>
-      <div id="unlocked" class="unlocked" hidden>
-        <p id="msg"></p>
-        <div class="glyph">
-          <div class="line"></div>
-          <div class="dot"></div>
-        </div>
-        <a href="stage4.html" class="btn next">تابع إلى نار التحوّل</a>
-      </div>
-    </div>
+<body data-matrix-color="#b388ff">
+<canvas id="matrix"></canvas>
+<div class="wrap"><div class="card">
+  <h1>المرحلة الثالثة – انفتاح البوابة</h1>
+  <p>الضجيج يهدأ… الإشارة تتشكّل. انظر بين الإشارات.</p>
+  <input id="key" class="inp" placeholder="أدخل مفتاح البوابة…" />
+  <button class="btn" onclick="check()">تحقّق</button>
+  <p id="status"></p>
+  <div id="ok" style="display:none;margin-top:10px">
+    <p>صحيح. fragment_1 محفوظ.</p>
+    <a class="btn" href="stage4.html">تابِع إلى نار التحوّل</a>
   </div>
+  <p class="small" style="margin-top:10px">لو علِقت: المفتاح التجريبي <code>ARCH</code>.</p>
+</div></div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const paid = params.get('paid') === '1';
-    const name = localStorage.getItem('mystic_name') || 'أنت';
-    const path = localStorage.getItem('mystic_path') || 'A';
-    document.getElementById('gate').textContent = paid ? 'الإشارة مقروءة…' : 'الإشارة غير مقروءة.';
-
-    if (paid) {
-      document.getElementById('locked').hidden = true;
-      const msg = path === 'A'
-        ? `${name}… العتمة تزاح قليلاً، اسمعي: ليس كل ما يلمع ذهبًا، لكن كل ذهولٍ طريق.`
-        : `${name}… الطبقات تنفصل. نمط جديد يظهر: Δ13-Σ9. سجّل.`;
-      document.getElementById('msg').textContent = msg;
-      document.getElementById('unlocked').hidden = false;
-    }
-  </script>
-</body>
-</html>
+<script>
+const p=new URLSearchParams(location.search); if(p.get('paid')==='1') localStorage.setItem('mystic_paid','1');
+function check(){
+  const v=(document.getElementById('key').value||'').trim().toUpperCase();
+  const s=document.getElementById('status');
+  if(!v){s.textContent='أدخل المفتاح…';s.style.color='#ff6b6b';return;}
+  if(v==='ARCH'){ localStorage.setItem('mc_f1','ARCH'); s.textContent='صحيح. البوابة تُفتح.'; s.style.color='#00ff88'; document.getElementById('ok').style.display='block'; }
+  else{ s.textContent='ليست هذه الإشارة. جرّب فك Base64 بالتلميح.'; s.style.color='#ff6b6b'; }
+}
+</script>
+<script>
+(function(){const c=document.getElementById('matrix'),x=c.getContext('2d');
+function r(){c.width=innerWidth;c.height=innerHeight}addEventListener('resize',r);r();
+const color=document.body.getAttribute('data-matrix-color')||'#b388ff',fs=16,chars='ｱｶｻﾀﾅﾊﾏﾔﾗﾜ0123456789';
+let cols=Math.floor(c.width/fs),drops=Array(cols).fill(1);
+function d(){x.fillStyle='rgba(0,0,0,0.08)';x.fillRect(0,0,c.width,c.height);
+x.fillStyle=color;x.font=fs+'px monospace';for(let i=0;i<drops.length;i++){const t=chars[Math.random()*chars.length|0];
+x.fillText(t,i*fs,drops[i]*fs);if(drops[i]*fs>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++;}}
+(function l(){d();requestAnimationFrame(l)})()})();
+</script>
+</body></html>
