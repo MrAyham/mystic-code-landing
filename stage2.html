@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>المرحلة الثانية – شيفرة الغموض</title>
   <link rel="stylesheet" href="stage2.css" />
+
+  <!-- PayPal Hosted Buttons (Part 1) -->
+  <script 
+    src="https://www.paypal.com/sdk/js?client-id=BAA1hgZV6lN0aY_t77gpDPg7-3MWzCfoL2BYumMzIYRozsEqeiwOpP8SU-p7s1LiWVC6bqyZM0A7zLewWU&components=hosted-buttons&disable-funding=venmo&currency=USD">
+  </script>
 </head>
 <body>
   <div class="bg"></div>
+
   <div class="content">
     <h1 id="title">المرحلة الثانية</h1>
     <p id="intro">الوعي يتشكّل… بياناتك تُضاء طبقةً طبقة.</p>
@@ -15,13 +21,16 @@
     <div class="card">
       <p id="pathText"></p>
       <p>لفك الشيفرة التالية، افتح البوابة المدفوعة:</p>
-      <a id="unlock" class="btn">Unlock the Next Cipher</a>
-      <p class="hint">بعد الدفع، سنقودك تلقائيًا للمرحلة الثالثة.</p>
+
+      <!-- مكان زر الدفع PayPal (Part 2) -->
+      <div id="paypal-container-ZUXNK5M7LZPNA" style="margin-top: 12px;"></div>
+
+      <p class="hint">بعد الدفع، سيتم إعادتك تلقائيًا إلى المرحلة الثالثة.</p>
     </div>
   </div>
 
   <script>
-    // Personalize by path
+    // تخصيص النص حسب المسار والاسم المخزن محليًا
     const path = localStorage.getItem('mystic_path') || 'A';
     const name = localStorage.getItem('mystic_name') || 'أنت';
     const pathText = document.getElementById('pathText');
@@ -31,27 +40,10 @@
       pathText.textContent = `${name}… البيانات تتشابك، اقترابٌ من النواة.`;
     }
 
-    // Payment link handling
-    // استخدم رابط Stripe Payment Link الجاهز وضعه كقيمة للمتغير التالي:
-    const STRIPE_PAYMENT_LINK = typeof window !== 'undefined' ? window.STRIPE_PAYMENT_LINK : null;
-
-    // بديل: اسحب من وسم meta يوضع في رأس الصفحة عبر Vercel env replace
-    const meta = document.querySelector('meta[name="payment-link"]');
-    const paymentFromMeta = meta ? meta.getAttribute('content') : '';
-
-    const paymentUrl = paymentFromMeta || STRIPE_PAYMENT_LINK || '#';
-
-    const unlock = document.getElementById('unlock');
-    unlock.href = paymentUrl;
-    unlock.addEventListener('click', (e) => {
-      if (paymentUrl === '#') {
-        e.preventDefault();
-        alert('أضف رابط الدفع (Stripe Payment Link) في الإعدادات ثم أعد المحاولة.');
-      } else {
-        // يمكننا إضافة باراميتر للعودة لاحقًا مثل ?paid=1
-        // Stripe Payment Links يسمح بإضافة redirect في لوحة Stripe (Success URL).
-      }
-    });
+    // تفعيل زر PayPal المستضاف
+    paypal.HostedButtons({
+      hostedButtonId: "ZUXNK5M7LZPNA",
+    }).render("#paypal-container-ZUXNK5M7LZPNA");
   </script>
 </body>
 </html>
