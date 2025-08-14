@@ -1,33 +1,94 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>بوابة اليقظة · Stage 1</title>
-  <meta name="description" content="ادخل بوابة اليقظة وابدأ الرحلة في شيفرة الغموض." />
-  <link rel="stylesheet" href="css/site.css" />
+  <title>Stage 1 - الدخول</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: sans-serif;
+      color: white;
+    }
+    #matrix-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: #000;
+      pointer-events: none;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+    }
+    p {
+      font-size: 1.2em;
+    }
+  </style>
 </head>
-<body class="fog">
-<body class="fog stage1" data-matrix-color="#00ff80">
-  <canvas id="matrix-bg"></canvas>
-  <div class="bg"></div>
-  ...
+<body class="stage1" data-matrix-color="#00ff80">
 
-  <button class="lang">AR</button>
-  <div class="bg"></div>
-  <div class="container">
-    <div class="card">
-      <div class="hero">
-        <img src="assets/seal_1.webp" alt="الختم الأخضر" class="pulse" loading="eager" />
-        <h1>بوابة اليقظة</h1>
-        <p>لقد بلغت العتبة الأولى… كل اختيار سيغيّر مصيرك.</p>
-        <a class="btn" href="stage2.html" data-i18n="start">ابدأ الرحلة</a>
-        <p class="small note">Tip: استعد… الأصوات والظلال ليست كما تبدو.</p>
-      </div>
-    </div>
+  <!-- خلفية الماتريكس -->
+  <canvas id="matrix-bg"></canvas>
+
+  <!-- المحتوى الأساسي -->
+  <div class="content">
+    <h1>مرحلة الدخول</h1>
+    <p>هنا يبدأ كل شيء... استعد للرحلة</p>
+    <button onclick="window.location.href='stage2.html'">إلى المرحلة التالية</button>
   </div>
-  <script src="js/site.js"></script>
-    <script src="js/site.js"></script>
-  <script src="js/matrix.js"></script>
+
+  <!-- سكربت الماتريكس -->
+  <script>
+  (function(){
+    const cvs = document.getElementById('matrix-bg'); 
+    if(!cvs) return;
+    const ctx = cvs.getContext('2d');
+    function resize(){ cvs.width = innerWidth; cvs.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+
+    const color = document.body.getAttribute('data-matrix-color')?.trim() || '#0f0';
+    const chars = 'ｱｶｻﾀﾅﾊﾏﾔﾗﾜ0123456789';
+    const fs = 16; 
+    let cols = Math.floor(cvs.width / fs); 
+    let drops = new Array(cols).fill(1);
+
+    function draw(){
+      ctx.fillStyle = 'rgba(0,0,0,0.08)';
+      ctx.fillRect(0,0,cvs.width,cvs.height);
+      ctx.fillStyle = color; 
+      ctx.font = fs + 'px monospace';
+      for(let i=0; i<drops.length; i++){
+        const t = chars.charAt(Math.floor(Math.random()*chars.length));
+        ctx.fillText(t, i*fs, drops[i]*fs);
+        if(drops[i]*fs > cvs.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    let raf;
+    function loop(){ draw(); raf=requestAnimationFrame(loop); } 
+    loop();
+
+    document.addEventListener('visibilitychange', ()=>{
+      if(document.hidden) cancelAnimationFrame(raf); 
+      else loop();
+    });
+  })();
+  </script>
+
 </body>
 </html>
