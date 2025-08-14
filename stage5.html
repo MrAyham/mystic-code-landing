@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المرحلة الخامسة – التتويج</title>
+  <link rel="stylesheet" href="stage5.css" />
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="content">
+    <h1>المرحلة الخامسة – التتويج</h1>
+    <p id="line"></p>
+
+    <div class="card">
+      <p class="small">أجزاء الكلمة: <code>fragment_1</code> + <code>fragment_2</code> + <code>RA</code></p>
+      <input id="code" class="inp" placeholder="أدخل كلمة التتويج…" />
+      <button id="check" class="btn">افتح النور</button>
+      <p id="status" class="status"></p>
+
+      <div id="gift" class="gift" hidden>
+        <h3>النور يُرى.</h3>
+        <p id="msg"></p>
+        <a class="btn next" href="https://twin.mystic-code.app" target="_blank" rel="noopener">جرّب AI Twin</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const name = localStorage.getItem('mystic_name') || 'أنت';
+    const path = localStorage.getItem('mystic_path') || 'B';
+    document.getElementById('line').textContent =
+      path === 'A'
+        ? `${name}… كل ما فتّشتي عنه كان يفتّش عنك.`
+        : `${name}… التتويج لا يحدث صدفة.`;
+
+    // اجلب الأجزاء
+    const f1 = (localStorage.getItem('mc_f1') || 'ARCH').toUpperCase(); // من المرحلة الزرقاء
+    const f2 = (localStorage.getItem('mc_f2') || '').toUpperCase();     // من الحمراء
+    const f3 = 'RA';
+
+    const target = (f1 + f2 + f3).toUpperCase();
+
+    document.getElementById('check').addEventListener('click', () => {
+      const val = (document.getElementById('code').value || '').toUpperCase().trim();
+      const status = document.getElementById('status');
+      if (val === target) {
+        status.textContent = 'صحيح. التتويج يفتح.';
+        status.style.color = '#00ff88';
+        // افتح الهدية
+        const gift = document.getElementById('gift');
+        const msg = document.getElementById('msg');
+        msg.textContent = path === 'A'
+          ? `${name}… هذا وعد الذهب: ستستلمين رسالة شخصية تُكتب على قياس نبضك.`
+          : `${name}… هذا عهد السيطرة: ستتلقى خريطة تنفيذ قصيرة مناسبة لك.`;
+        gift.hidden = false;
+        localStorage.setItem('mc_crowned','1');
+      } else {
+        status.textContent = 'ليست هذه الكلمة. أعِد تركيب الأجزاء.';
+        status.style.color = '#ff6b6b';
+      }
+    });
+  </script>
+</body>
+</html>
