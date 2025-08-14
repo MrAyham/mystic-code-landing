@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المرحلة الثالثة – شيفرة الغموض</title>
+  <link rel="stylesheet" href="stage3.css" />
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="content">
+    <div class="card">
+      <h1>المرحلة الثالثة</h1>
+      <p id="gate"></p>
+      <div id="locked" class="locked">
+        <p>هذه البوابة تتطلب إشارة دفع صالحة.</p>
+        <p class="hint">إذا كنت دفعت، تأكد أن رابط العودة يحتوي <code>?paid=1</code></p>
+        <a href="stage2.html" class="btn back">⬅ العودة للمرحلة الثانية</a>
+      </div>
+      <div id="unlocked" class="unlocked" hidden>
+        <p id="msg"></p>
+        <div class="glyph">
+          <div class="line"></div>
+          <div class="dot"></div>
+        </div>
+        <a href="stage4.html" class="btn next">تابع إلى نار التحوّل</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const paid = params.get('paid') === '1';
+    const name = localStorage.getItem('mystic_name') || 'أنت';
+    const path = localStorage.getItem('mystic_path') || 'A';
+    document.getElementById('gate').textContent = paid ? 'الإشارة مقروءة…' : 'الإشارة غير مقروءة.';
+
+    if (paid) {
+      document.getElementById('locked').hidden = true;
+      const msg = path === 'A'
+        ? `${name}… العتمة تزاح قليلاً، اسمعي: ليس كل ما يلمع ذهبًا، لكن كل ذهولٍ طريق.`
+        : `${name}… الطبقات تنفصل. نمط جديد يظهر: Δ13-Σ9. سجّل.`;
+      document.getElementById('msg').textContent = msg;
+      document.getElementById('unlocked').hidden = false;
+    }
+  </script>
+</body>
+</html>
