@@ -1,0 +1,31 @@
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;overflow:hidden}
+a{text-decoration:none;color:inherit}
+
+#matrix{position:fixed;inset:0;z-index:-3;background:#000;pointer-events:none}
+.radial{position:fixed;inset:-10% -10%;z-index:-2;filter:blur(28px);pointer-events:none}
+.stage1 .radial{background:radial-gradient(1200px 600px at 50% 30%, rgba(0,255,128,.14) 0%, transparent 60%)}
+.glyph{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.08;background:url('../assets/mystic-symbol-green.png') center/contain no-repeat}
+
+.container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{width:min(900px,94vw);text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:26px;backdrop-filter:blur(6px)}
+
+.hero{display:flex;flex-direction:column;align-items:center;gap:12px}
+.seal{width:min(320px,70vw);aspect-ratio:1/1;object-fit:cover;border-radius:50%;animation:pulse 3s ease-in-out infinite;
+      box-shadow:0 0 0 2px rgba(0,255,128,.25),0 20px 60px rgba(0,255,128,.22)}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+h1{margin:.2em 0 .2em;font-size:clamp(22px,4vw,36px)}
+.sub{opacity:.9}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:8px 12px;font-size:12px}
+
+.btn{display:inline-block;margin-top:14px;padding:12px 18px;border-radius:999px;border:0;cursor:pointer;color:#012;background:linear-gradient(90deg,#00ff80,#22d3ee);box-shadow:0 10px 24px rgba(34,211,238,.25)}
+.btn--ghost{background:transparent;border:1px solid rgba(255,255,255,.22);color:#fff}
+.lang{position:fixed;top:10px;left:10px;z-index:2;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:6px 10px;font-size:12px;cursor:pointer}
+
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;right:0;top:0;opacity:.4;mix-blend:screen}
+.glitch::before{transform:translate(2px,0);color:#0ff;clip-path:inset(0 0 50% 0)}
+.glitch::after{transform:translate(-2px,0);color:#f0f;clip-path:inset(50% 0 0 0)}
