@@ -1,6 +1,0 @@
-.bg{position:fixed;inset:0;background:radial-gradient(1200px 600px at 50% 30%,#7f1d1d 0%,#1a0004 65%,#070003 100%)}
-.content{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:'Amiri',serif;color:#fff;text-align:center}
-.card{width:min(680px,92vw);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:20px;backdrop-filter:blur(6px)}
-.ta{width:100%;padding:12px;border-radius:12px;border:1px solid #3a0a0a;background:#0b0002;color:#fff;margin-top:8px}
-.btn{display:inline-block;margin-top:12px;padding:12px 18px;border-radius:999px;background:linear-gradient(90deg,#ef4444,#f59e0b);color:#1a0004;text-decoration:none;border:none;cursor:pointer}
-.status{margin-top:8px;opacity:.9}
